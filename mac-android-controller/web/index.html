@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mac 控制 Android</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel setup-panel">
+        <h1>Mac 控制 Android</h1>
+        <p>依赖本机 adb。支持 USB 调试和 adb over Wi-Fi。</p>
+        <div class="row">
+          <button id="refreshDevices" type="button">刷新设备</button>
+          <span id="status" class="status">未连接</span>
+        </div>
+        <label>
+          设备
+          <select id="deviceSelect"></select>
+        </label>
+        <div class="button-grid">
+          <button data-key="KEYCODE_BACK" type="button">返回</button>
+          <button data-key="KEYCODE_HOME" type="button">Home</button>
+          <button data-key="KEYCODE_APP_SWITCH" type="button">任务</button>
+          <button data-key="KEYCODE_POWER" type="button">电源</button>
+        </div>
+        <label>
+          发送文本
+          <input id="textInput" placeholder="输入后发送到手机焦点输入框" />
+        </label>
+        <button id="sendText" type="button">发送文本</button>
+        <div class="tips">
+          <p>操作方式：</p>
+          <p>点击画面发送 `tap`，拖拽发送 `swipe`。</p>
+          <p>按 `Escape` 触发返回，按 `h` 触发 Home。</p>
+        </div>
+      </section>
+      <section class="panel stream-panel">
+        <div class="toolbar">
+          <strong id="deviceTitle">未选择设备</strong>
+          <span id="displayInfo">0 x 0</span>
+        </div>
+        <canvas id="screenCanvas" width="360" height="640"></canvas>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

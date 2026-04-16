@@ -3,12 +3,15 @@ const targetLabel = document.getElementById("target-label");
 const stream = document.getElementById("stream");
 const deviceList = document.getElementById("device-list");
 const form = document.getElementById("connect-form");
+const textInput = document.getElementById("text-input");
 const ctx = stream.getContext("2d");
 
 let socket;
 let connectedTarget = null;
 let frameWidth = stream.width;
 let frameHeight = stream.height;
+let gestureStart = null;
+let gestureStartAt = 0;
 
 function wsUrl() {
   const scheme = window.location.protocol === "https:" ? "wss" : "ws";
@@ -100,32 +103,58 @@ form.addEventListener("submit", (event) => {
 });
 
 stream.addEventListener("pointerdown", (event) => {
-  stream.setPointerCapture(event.pointerId);
-  sendInput({ type: "pointerdown", ...mapPoint(event.clientX, event.clientY) });
+  gestureStart = mapPoint(event.clientX, event.clientY);
+  gestureStartAt = Date.now();
 });
-stream.addEventListener("pointermove", (event) => {
-  if (event.buttons === 0) {
+
+stream.addEventListener("pointerup", (event) => {
+  if (!gestureStart) {
     return;
   }
-  sendInput({ type: "pointermove", ...mapPoint(event.clientX, event.clientY) });
-});
-stream.addEventListener("pointerup", (event) => {
-  sendInput({ type: "pointerup", ...mapPoint(event.clientX, event.clientY) });
+
+  const end = mapPoint(event.clientX, event.clientY);
+  const dx = end.x - gestureStart.x;
+  const dy = end.y - gestureStart.y;
+  const distance = Math.hypot(dx, dy);
+  const duration = Math.max(120, Date.now() - gestureStartAt);
+
+  if (distance < 18) {
+    sendInput({ type: "pointerdown", x: end.x, y: end.y });
+  } else {
+    sendInput({
+      type: "swipe",
+      x1: gestureStart.x,
+      y1: gestureStart.y,
+      x2: end.x,
+      y2: end.y,
+      duration
+    });
+  }
+  gestureStart = null;
 });
 
 window.addEventListener("keydown", (event) => {
   if (!connectedTarget) {
     return;
   }
-  event.preventDefault();
-  sendInput({
-    type: "keydown",
-    key: event.key,
-    ctrlKey: event.ctrlKey,
-    altKey: event.altKey,
-    shiftKey: event.shiftKey,
-    metaKey: event.metaKey
+  if (["Escape", "Home"].includes(event.key)) {
+    event.preventDefault();
+    sendInput({ type: "keydown", key: event.key });
+  }
+});
+
+document.querySelectorAll("[data-key]").forEach((button) => {
+  button.addEventListener("click", () => {
+    sendInput({ type: "keydown", key: button.dataset.key });
   });
+});
+
+document.getElementById("send-text").addEventListener("click", () => {
+  const value = textInput.value.trim();
+  if (!value) {
+    return;
+  }
+  sendInput({ type: "text", value });
 });
 
 document.getElementById("refresh-devices").addEventListener("click", async () => {

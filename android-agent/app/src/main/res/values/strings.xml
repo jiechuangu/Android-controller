@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Nat Remote</string>
+    <string name="accessibility_description">用于执行远端点击、滑动和文本输入</string>
 </resources>

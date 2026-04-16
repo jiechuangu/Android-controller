@@ -58,6 +58,19 @@ button {
   font: inherit;
 }
 
+.inline-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
 input {
   color: var(--text);
   background: rgba(4, 10, 20, 0.6);

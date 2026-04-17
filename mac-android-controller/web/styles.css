@@ -1,0 +1,152 @@
+:root {
+  --bg: #09131f;
+  --panel: rgba(12, 23, 36, 0.92);
+  --line: rgba(121, 164, 255, 0.25);
+  --text: #edf4ff;
+  --muted: #90a3bf;
+  --accent: #2fb2ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "SF Pro Display", "PingFang SC", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(47, 178, 255, 0.22), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(84, 199, 146, 0.16), transparent 24%),
+    var(--bg);
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 20px;
+  padding: 24px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.setup-panel {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.remote-box {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(5, 10, 18, 0.3);
+}
+
+.mode-box {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(5, 10, 18, 0.3);
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+.mode-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.row,
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+button {
+  border: none;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(120deg, #1d7df2, #1fb28f);
+}
+
+.button-secondary {
+  background: rgba(144, 163, 191, 0.22);
+  border: 1px solid var(--line);
+}
+
+select,
+input {
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: rgba(5, 10, 18, 0.72);
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.status,
+.tips,
+#displayInfo {
+  color: var(--muted);
+}
+
+.stream-panel {
+  display: grid;
+  gap: 16px;
+}
+
+canvas {
+  width: min(100%, 460px);
+  aspect-ratio: 9 / 16;
+  justify-self: center;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: #01060c;
+  touch-action: none;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+}

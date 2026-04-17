@@ -1,0 +1,6 @@
+{
+  "server_url": "ws://127.0.0.1:8080/ws",
+  "device_id": "desktop-01",
+  "secret": "replace-with-a-strong-secret",
+  "fps": 3
+}

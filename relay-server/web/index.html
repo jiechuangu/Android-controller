@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>双向远控</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel setup-panel">
+        <h1>双向远控</h1>
+        <p>输入目标设备 ID 和密钥，浏览器将作为控制端接入。</p>
+        <form id="connect-form">
+          <label>
+            控制端 ID
+            <input id="controller-id" value="browser-controller" required />
+          </label>
+          <label>
+            目标设备 ID
+            <input id="target-id" placeholder="desktop-01 / android-01" required />
+          </label>
+          <label>
+            设备密钥
+            <input id="secret" type="password" required />
+          </label>
+          <button type="submit">连接设备</button>
+        </form>
+        <div class="quick-actions">
+          <button data-key="Escape" type="button">返回</button>
+          <button data-key="Home" type="button">Home</button>
+          <button data-key="RecentApps" type="button">任务</button>
+        </div>
+        <label>
+          文本输入
+          <div class="inline-row">
+            <input id="text-input" placeholder="发到手机当前输入框" />
+            <button id="send-text" type="button">发送</button>
+          </div>
+        </label>
+        <div id="status" class="status">未连接</div>
+      </section>
+      <section class="panel stream-panel">
+        <div class="toolbar">
+          <span id="target-label">未选择设备</span>
+          <button id="refresh-devices" type="button">查看在线设备</button>
+        </div>
+        <canvas id="stream" width="1280" height="720"></canvas>
+        <div id="device-list" class="device-list"></div>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+.github-deploy-key
+.github-deploy-key.pub
+.codex_deploy_key
+.codex_deploy_key.pub
+.DS_Store
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/
+.gradle/
+.idea/
+local.properties
